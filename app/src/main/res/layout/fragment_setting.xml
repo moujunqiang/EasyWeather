@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:backButton="false"
+        app:leftColor="@color/white"
+        app:leftTitle="设置" />
+
+    <FrameLayout
+        android:id="@+id/fl_person_data_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp" />
+
+
+    </FrameLayout>
+
+
+    <com.android.weatherapp.weatherview.SettingBar
+        android:id="@+id/sb_setting_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftText="修改密码"
+        app:bar_rightIcon="@drawable/ico_go_black" />
+
+    <com.android.weatherapp.weatherview.SettingBar
+        android:id="@+id/sb_setting_auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftText="自动登录">
+
+        <com.android.weatherapp.weatherview.SwitchButton
+            android:id="@+id/sb_setting_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+    </com.android.weatherapp.weatherview.SettingBar>
+    <com.android.weatherapp.weatherview.SettingBar
+        android:id="@+id/sb_setting_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftText="当前城市"
+        app:bar_rightIcon="@drawable/ico_go_black"
+        app:bar_rightText="" />
+
+
+    <com.android.weatherapp.weatherview.SettingBar
+        android:id="@+id/sb_setting_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftText="历史天数"
+        app:bar_rightIcon="@drawable/ico_go_black"
+        app:bar_rightText="1" />
+
+    <com.android.weatherapp.weatherview.SettingBar
+        android:id="@+id/sb_setting_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftColor="@color/red"
+        app:bar_leftText="退出" />
+
+</LinearLayout>
