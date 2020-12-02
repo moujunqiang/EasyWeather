@@ -15,11 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.weatherapp.R;
+import com.android.weatherapp.activity.SettingCityActivity;
 import com.android.weatherapp.helper.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
 /**
@@ -48,13 +52,37 @@ public final class WeatherCityFragment extends Fragment {
         rvHistoryCity = inflate.findViewById(R.id.rv_history_city);
         swipeRefreshLayout = inflate.findViewById(R.id.swipe_refresh);
         rvHistoryCity.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_city) {
-            @Override
-            protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.tv_name, item);
-            }
 
+
+        final BaseQuickAdapter adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_city_select) {
+
+            @Override
+            protected void convert(@NonNull BaseViewHolder helper, String item) {
+                int position = helper.getPosition();
+                helper.setText(R.id.tv_name, item);
+                String mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "杭州");
+                if (mWeatherId.equals(item)) {
+                    helper.getView(R.id.iv_select).setVisibility(VISIBLE);
+                } else {
+                    helper.getView(R.id.iv_select).setVisibility(GONE);
+
+                }
+
+            }
         };
+        List<String> city = SPUtils.getDataList(getContext(), "city");
+        adapter.setNewData(city);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                SPUtils.put(getContext(), "weatherId", city.get(position));
+                adapter.setNewData(getCityData());
+                adapter.notifyDataSetChanged();
+
+            }
+        });
+
+
         rvHistoryCity.setAdapter(adapter);
         adapter.setNewData(getCityData());
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -64,6 +92,7 @@ public final class WeatherCityFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
         adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {

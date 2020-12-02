@@ -1,10 +1,13 @@
 package com.android.weatherapp.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,9 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.android.weatherapp.R;
+import com.android.weatherapp.gson.ImageBean;
 import com.android.weatherapp.gson.WeatherBean;
 import com.android.weatherapp.helper.HttpUtil;
 import com.android.weatherapp.helper.SPUtils;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -32,6 +37,7 @@ public final class WeatherRecomFragment extends Fragment {
     TextView comfortText;
     TextView carWashText;
     TextView sportText;
+    ImageView ivDay;
 
     public static WeatherRecomFragment newInstance() {
         return new WeatherRecomFragment();
@@ -51,7 +57,14 @@ public final class WeatherRecomFragment extends Fragment {
         comfortText = inflate.findViewById(R.id.comfort_text);
         carWashText = inflate.findViewById(R.id.car_wash_text);
         sportText = inflate.findViewById(R.id.sport_text);
-        String   mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "");
+        inflate.findViewById(R.id.btn_get_picture).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadBingPic();
+            }
+        });
+        ivDay = inflate.findViewById(R.id.image_day);
+        String mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "");
 
         requestAqi(mWeatherId);
     }
@@ -125,6 +138,31 @@ public final class WeatherRecomFragment extends Fragment {
                         }
                     }
                 });
+            }
+        });
+    }
+
+    /**
+     * 加载必应每日一图
+     */
+    private void loadBingPic() {
+        String requestBingPic = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1";
+        HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Gson gson = new Gson();
+                ImageBean imageBean = gson.fromJson(response.body().string(), ImageBean.class);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Glide.with(getContext()).load("https://www.bing.com" + imageBean.getImages().get(0).getUrl()).into(ivDay);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
         });
     }

@@ -56,7 +56,7 @@ public final class RegisterActivity extends AppCompatActivity implements View.On
                     }
                 })
                 .build();
-        findViewById(R.id.btn_login_commit).setOnClickListener(this);
+        findViewById(R.id.btn_register_commit).setOnClickListener(this);
     }
 
 

@@ -13,8 +13,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.android.weatherapp.R;
 import com.android.weatherapp.adapter.BaseFragmentAdapter;
-import com.android.weatherapp.fragment.HistoryFragment;
 import com.android.weatherapp.fragment.SettingFragment;
+import com.android.weatherapp.fragment.WeatherCityFragment;
 import com.android.weatherapp.fragment.WeatherFragment;
 import com.android.weatherapp.helper.DoubleClickHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -60,7 +60,7 @@ public final class HomeActivity extends AppCompatActivity
     protected void initData() {
         mPagerAdapter = new BaseFragmentAdapter<>(this);
         mPagerAdapter.addFragment(WeatherFragment.newInstance());
-        mPagerAdapter.addFragment(HistoryFragment.newInstance());
+        mPagerAdapter.addFragment(WeatherCityFragment.newInstance());
         mPagerAdapter.addFragment(SettingFragment.newInstance());
 
         mViewPager.setAdapter(mPagerAdapter);

@@ -7,7 +7,13 @@
     android:orientation="vertical">
 
 
-
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:backButton="false"
+        app:leftColor="@color/white"
+        app:leftTitle="历史" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
