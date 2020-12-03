@@ -70,11 +70,11 @@ public final class WeatherCityFragment extends Fragment {
 
             }
         };
-        List<String> city = SPUtils.getDataList(getContext(), "city");
-        adapter.setNewData(city);
+        adapter.setNewData( SPUtils.getDataList(getContext(), "city"));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                List<String> city = SPUtils.getDataList(getContext(), "city");
                 SPUtils.put(getContext(), "weatherId", city.get(position));
                 adapter.setNewData(getCityData());
                 adapter.notifyDataSetChanged();

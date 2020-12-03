@@ -64,7 +64,7 @@ public final class WeatherRecomFragment extends Fragment {
             }
         });
         ivDay = inflate.findViewById(R.id.image_day);
-        String mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "");
+        String mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "杭州");
 
         requestAqi(mWeatherId);
     }

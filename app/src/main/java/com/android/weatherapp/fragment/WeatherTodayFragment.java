@@ -82,14 +82,14 @@ public final class WeatherTodayFragment extends Fragment {
         forecastLayout = inflate.findViewById(R.id.forecast_layout);
         weatherModel = new WeatherModel();
         /*获取城市名字*/
-        mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "");
+        mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "杭州");
 
         requestWeather(mWeatherId);
         requestNowWeather(mWeatherId);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "");
+                mWeatherId = (String) SPUtils.get(getContext(), "weatherId", "杭州");
                 requestWeather(mWeatherId);
                 requestNowWeather(mWeatherId);
             }
